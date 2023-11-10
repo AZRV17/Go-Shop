@@ -1,0 +1,8 @@
+http:
+  host: 127.0.0.1
+  port: 8081
+
+mongo:
+  db: first
+  user: alex_azrv
+  password: AylWjunu6jvCHsYW
