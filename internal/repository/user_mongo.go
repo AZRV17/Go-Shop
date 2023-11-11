@@ -30,13 +30,22 @@ func (r *UserRepo) Create(ctx context.Context, user *domain.User) (*domain.User,
 	return user, nil
 }
 
-func (r *UserRepo) Update(ctx context.Context, user *domain.User) (*domain.User, error) {
-	_, err := r.db.UpdateOne(ctx, bson.M{"_id": user.ID}, bson.M{"$set": user})
+func (r *UserRepo) UpdatePassword(ctx context.Context, id primitive.ObjectID, password string) error {
+	_, err := r.db.UpdateOne(ctx, bson.M{"_id": id}, bson.M{"$set": bson.M{"password": password}})
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return user, nil
+	return nil
+}
+
+func (r *UserRepo) UpdateEmail(ctx context.Context, id primitive.ObjectID, email string) error {
+	_, err := r.db.UpdateOne(ctx, bson.M{"_id": id}, bson.M{"$set": bson.M{"email": email}})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (r *UserRepo) Delete(ctx context.Context, id primitive.ObjectID) error {
@@ -52,6 +61,26 @@ func (r *UserRepo) FindById(ctx context.Context, id primitive.ObjectID) (*domain
 	var account domain.User
 
 	if err := r.db.FindOne(ctx, bson.M{"_id": id}).Decode(&account); err != nil {
+		return nil, err
+	}
+
+	return &account, nil
+}
+
+func (r *UserRepo) FindByLogin(ctx context.Context, login string) (*domain.User, error) {
+	var account domain.User
+
+	if err := r.db.FindOne(ctx, bson.M{"login": login}).Decode(&account); err != nil {
+		return nil, err
+	}
+
+	return &account, nil
+}
+
+func (r *UserRepo) FindByEmail(ctx context.Context, email string) (*domain.User, error) {
+	var account domain.User
+
+	if err := r.db.FindOne(ctx, bson.M{"email": email}).Decode(&account); err != nil {
 		return nil, err
 	}
 

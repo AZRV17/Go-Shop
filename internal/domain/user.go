@@ -9,5 +9,4 @@ type User struct {
 	Login    string             `json:"login" bson:"login"`
 	Email    string             `json:"email" bson:"email"`
 	Password string             `json:"password" bson:"password"`
-	Balance  float64            `json:"balance" bson:"balance"`
 }

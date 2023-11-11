@@ -9,9 +9,12 @@ import (
 
 type Users interface {
 	Create(ctx context.Context, user *domain.User) (*domain.User, error)
-	Update(ctx context.Context, user *domain.User) (*domain.User, error)
+	UpdatePassword(ctx context.Context, id primitive.ObjectID, password string) error
+	UpdateEmail(ctx context.Context, id primitive.ObjectID, email string) error
 	Delete(ctx context.Context, id primitive.ObjectID) error
 	FindById(ctx context.Context, id primitive.ObjectID) (*domain.User, error)
+	FindByLogin(ctx context.Context, login string) (*domain.User, error)
+	FindByEmail(ctx context.Context, email string) (*domain.User, error)
 	FindAll(ctx context.Context) (*[]domain.User, error)
 }
 
