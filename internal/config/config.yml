@@ -3,6 +3,6 @@ http:
   port: 8081
 
 mongo:
-  db: first
+  db: goShop
   user: alex_azrv
   password: AylWjunu6jvCHsYW

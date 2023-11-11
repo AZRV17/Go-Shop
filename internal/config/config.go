@@ -10,6 +10,7 @@ type Config struct {
 	Mongo struct {
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
+		Db       string `yaml:"db"`
 	}
 }
 
@@ -26,6 +27,7 @@ func New(configPath string) (*Config, error) {
 	config.HTTP.Port = viper.GetString("http.port")
 	config.Mongo.User = viper.GetString("mongo.user")
 	config.Mongo.Password = viper.GetString("mongo.password")
+	config.Mongo.Db = viper.GetString("mongo.db")
 
 	return config, nil
 }
